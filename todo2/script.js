@@ -6,7 +6,6 @@ $(document).ready(function () {
 
     status();
 
-    
     //login function in navbar
     $(".login").click(function(){
 
@@ -86,43 +85,62 @@ $(document).ready(function () {
         $("#main").append("<h4>Att göra:</h4>");
         $("#main").append("<ul class='stuffList'></ul>");
 
-        var stuffToDo = ["Klipp gräset",
+        var stuffToDo = [];
+
+        if(localStorage.stuffToDo == null){
+
+            var stuffToDo = ["Klipp gräset",
             "Betala räkningar",
             "Köp mjölk",
             "Spika upp tavlor",
             "Rasta hundarna",
             "Ge hundarna mat",];
 
-        localStorage.setItem("stuffToDo", JSON.stringify(stuffToDo));
-        stuffToDo = JSON.parse(localStorage.getItem("stuffToDo"));
-        
-        $(".stuffList").on('dblclick', 'li', function() {
-            var $entry = $(this);
-            stuffToDo.splice($entry.index(), 1);
-            $entry.remove();
-        });
-       
-            
-        $.each(stuffToDo, function(value, index) {
-            $(".stuffList").append("<li>" + index + "</li>");
+            localStorage.setItem("stuffToDo", JSON.stringify(stuffToDo));
 
+            $.each(stuffToDo, function(index, value) {
+                $(".stuffList").append("<li>" + value + "</li>");
+    
+                });
+            }
+
+        else{
+
+            stuffToDo = JSON.parse(localStorage.getItem("stuffToDo"));
+
+            $.each(stuffToDo, function(index, value) {
+                $(".stuffList").append("<li>" + value + "</li>");
+                });
+            }
             
-          });
-          
+          //creates inputform and button for the list
           $("#main").append("<input class='add' type='text'/>");
           $("#main").append("<button class='addBtn'>Lägg till</button>");
   
+        //function to add things to list
           $(".addBtn").click(function(){
-            stuffToDo.push($(".add").val());
-             //$().add($(".add").val());
-             console.log($(".add").val());
-              });
 
-         
+            $(".stuffList").empty();
+
+            stuffToDo.push($(".add").val());
+            localStorage.setItem("stuffToDo", JSON.stringify(stuffToDo));
+
+            $.each(stuffToDo, function(index, value) {
+
+                $(".stuffList").append("<li>" + value + "</li>");});});
+
+              //function to delete from list
+              $(".stuffList").on('dblclick', 'li', function() {
+                var $entry = $(this);
+                stuffToDo.splice($entry.index(), 1);
+                $entry.remove();
+                localStorage.setItem("stuffToDo", JSON.stringify(stuffToDo));
+            });
 
     }
+
     //gets actuall date and time
-    document.getElementById("date").innerHTML = Date();
+    $('#date').text((new Date()).toLocaleDateString());
 
 });
 
