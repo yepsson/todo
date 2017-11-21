@@ -96,15 +96,36 @@ $(document).ready(function () {
         localStorage.setItem("stuffToDo", JSON.stringify(stuffToDo));
         stuffToDo = JSON.parse(localStorage.getItem("stuffToDo"));
         
+        $(".stuffList").on('dblclick', 'li', function() {
+            var $entry = $(this);
+            stuffToDo.splice($entry.index(), 1);
+            $entry.remove();
+        });
+       
+            
         $.each(stuffToDo, function(value, index) {
             $(".stuffList").append("<li>" + index + "</li>");
+
+            
           });
+          
+          $("#main").append("<input class='add' type='text'/>");
+          $("#main").append("<button class='addBtn'>Lägg till</button>");
+  
+          $(".addBtn").click(function(){
+            stuffToDo.push($(".add").val());
+             //$().add($(".add").val());
+             console.log($(".add").val());
+              });
+
+         
 
     }
     //gets actuall date and time
     document.getElementById("date").innerHTML = Date();
 
 });
+
 
 
 
