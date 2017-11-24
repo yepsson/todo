@@ -166,7 +166,7 @@ $(document).ready(function () {
                 $(".stuffList").append("<li>" + value + " <i class='fa fa-check' aria-hidden='true'></i></li>");});
             
                hoverLi();
-
+               $('.add').val("");
             });
 
               //function to delete from list
