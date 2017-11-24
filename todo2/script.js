@@ -11,7 +11,6 @@ fetch("./accounts.json")
     accounts = accountsJson;
 });
 
-
 $(document).ready(function () {
 
     status();
@@ -23,7 +22,7 @@ $(document).ready(function () {
 
         // LOOPS THRU JSONarray 2 CHECK IF USERNAME EXISTS
         $.each(accounts, function(index, value) {
-            
+
             if ( value.username == $(".user").val() ){
 
                 sessionStorage.user = $(".user").val();
@@ -45,8 +44,7 @@ $(document).ready(function () {
         else {
 
             wrong();
-
-        }
+         }
     });
 
     //function that calls if user + pass is right
@@ -167,6 +165,7 @@ $(document).ready(function () {
             
                hoverLi();
                $('.add').val("");
+
             });
 
               //function to delete from list
